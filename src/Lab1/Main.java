@@ -22,28 +22,48 @@ public class Main {
 
 
         /*---------------------------------ПУНКТ 1.2----------------------------------*/
-        Car car1 = new Car("BMW", 3);
-        car1.addModel("F30", 5500000);
-        car1.addModel("X6", 6500000);
-        car1.addModel("X1", 1200000);
-        car1.addModel("i530", 3200000);
-        car1.addModel("i730", 7200000);
-        car1.addModel("i330", 1800000);
-
-        for (String str:car1.getAllModelNames()) {
-            System.out.println(str);
-        }
-
-        car1.deleteModel("i730",7200000);
-
-        System.out.println("-------------------------------------------------");
-
-        for (String str:car1.getAllModelNames()) {
-            System.out.println(str);
-        }
+//        Car car1 = new Car("BMW", 3);
+//        car1.addModel("F30", 5500000);
+//        car1.addModel("X6", 6500000);
+//        car1.addModel("X1", 1200000);
+//        car1.addModel("i530", 3200000);
+//        car1.addModel("i730", 7200000);
+//        car1.addModel("i330", 1800000);
+//
+//        for (String str:car1.getAllModelNames()) {
+//            System.out.println(str);
+//        }
+//
+//        car1.deleteModel("i730",7200000);
+//
+//        System.out.println("-------------------------------------------------");
+//
+//        for (String str:car1.getAllModelNames()) {
+//            System.out.println(str);
+//        }
 
 
       //  Car car2 = new Car("Toyota",2);
+
+
+
+
+
+        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
+
+        motorcycle.addModel("Y500", 540000);
+        motorcycle.addModel("Y300", 340000);
+        motorcycle.addModel("B312", 270000);
+        motorcycle.addByIndex("Test", 12345, 3);
+        motorcycle.addByIndex("Test2", 77777, 4);
+
+
+       // System.out.println(motorcycle.getModelName(motorcycle.getModelByIndex(5)));
+        //motorcycle.deleteModel("Test",12345);
+
+        for (String str: motorcycle.getAllModelNames()) {
+            System.out.println(str);
+        }
 
 
     }

@@ -23,6 +23,14 @@ public class Motorcycle {
             this.price = price;
         }
 
+        public String getModelName() {
+            return modelName;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
 
     }
 
@@ -36,14 +44,14 @@ public class Motorcycle {
 
 
     private String mark;
-    private Model[] arrayModel;
+    //private Model arrayModel;
 
 
     public Motorcycle() {}
 
-    public Motorcycle(String mark, int arrSize) {
+    public Motorcycle(String mark, int size) {
         this.mark = mark;
-        this.arrayModel = new Model[arrSize];
+        this.size = size;
     }
 
 
@@ -61,75 +69,110 @@ public class Motorcycle {
 
     public String[] getAllModelNames() {
 
-        String [] modelNamesArr = new String[arrayModel.length];
-        for (int i=0; i<arrayModel.length; i++)
-            modelNamesArr[i] = arrayModel[i].modelName;
+        Model m = head;
+
+        String [] modelNamesArr = new String[size];
+        for (int i=0; i<size; i++) {
+            modelNamesArr[i] = m.next.getModelName();
+            m = m.next;
+        }
+
 
         return modelNamesArr;
+
     }
 
     public double getPriceModelByName(String modelName) {
-
         double founded = 0;
-        for(int i=0; i<arrayModel.length; i++) {
-            if(arrayModel[i].modelName == modelName) founded = arrayModel[i].price;
+        for(int i=0; i<size; i++) {
+            if(getModelByIndex(i).getModelName() == modelName) founded = getModelByIndex(i).price;
         }
 
         return founded;
+
     }
 
     public void updatePriceModelByName(String modelName, double price) {
-
-        for(int i=0; i<arrayModel.length; i++) {
-            if(arrayModel[i].modelName == modelName) arrayModel[i].price = price;
-        }
 
     }
 
     public double[] getAllModelPrices() {
 
         double [] modelPricesArr = new double[]{};
-        for (int i=0; i<arrayModel.length; i++)
-            modelPricesArr[i] = arrayModel[i].price;
+        for (int i=0; i<size; i++)
+            modelPricesArr[i] = getModelByIndex(i).getPrice();
 
         return modelPricesArr;
+
     }
 
     public void addModel(String modelName, double price) {
 
-        int length = arrayModel.length;
-        if(arrayModel[length-1] == null)
-            for(int i=0; i<length; i++) {
-                if(arrayModel[i] == null) {
-                    arrayModel[i] = new Model(modelName, price);
-                    break;
-                }
+        Model model = new Model(modelName,price);
+        model.next = head;
+        model.prev = head.prev;
+        model.prev.next = model;
+        model.next.prev = model;
+        size++;
 
-            }
-        else {
-            length = length + 1;
-            arrayModel = Arrays.copyOf(arrayModel, length);
-            arrayModel[length-1] = new Model(modelName, price);
+    }
+
+    public void addByIndex(String modelName, double price, int index) {
+
+        Model model = new Model(modelName,price);
+
+        Model m = getModelByIndex(index);
+
+
+        m.prev.next = model;
+        model.next = m;
+        model.prev = m.prev;
+        m.prev = model;
+
+        model = m;
+
+        size++;
+
+
+    }
+
+    public String getModelName(Model model) {
+        return model.getModelName();
+    }
+
+    public Model getModelByIndex(int index) {
+
+        Model m;
+        m = head;
+        int i = 1;
+        while (i <= index) {
+            m = m.next;
+            ++i;
         }
 
-
+        return m;
     }
 
     public void deleteModel(String modelName, double price) {
-        if(arrayModel.length != 0) {
-            for (int i=0; i<arrayModel.length; i++) {
-                if(arrayModel[i].modelName == modelName && arrayModel[i].price == price) {
-                    Model[] copy = new Model[arrayModel.length-1];
-                    System.arraycopy(arrayModel, 0, copy, 0, i);
-                    System.arraycopy(arrayModel, i+1, copy, i, arrayModel.length-i-1);
-                    arrayModel = copy;
-                }
+
+        Model m;
+        m = head;
+        for(int i=0; i<size; i++) {
+            if(getModelByIndex(i).getModelName() == modelName && getModelByIndex(i).getPrice() == price){
+                m = getModelByIndex(i);
+                break;
             }
         }
+        m.prev.next = m.next;
+        m.next.prev = m.prev;
+        m.next = m.prev = null;
+        m = null;
+        size--;
+
     }
 
     public int getSizeModelArray() {
-        return arrayModel.length;
+        return size;
     }
 
 
