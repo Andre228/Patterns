@@ -1,11 +1,16 @@
 package Lab1;
 
+import Lab1.Exceptions.DuplicateModelNameException;
+import Lab1.Exceptions.ModelPriceOutOfBoundsException;
+import Lab1.Exceptions.NoSuchModelNameException;
+import Lab1.Interfaces.Vehicle;
+
 import java.util.Arrays;
 
 /**
  * Created by Андрей on 19.02.2020.
  */
-public class Motorcycle {
+public class Motorcycle implements Vehicle {
 
 
 
@@ -63,8 +68,15 @@ public class Motorcycle {
         this.mark = mark;
     }
 
-    public void updateModelName(Model model, String modelName) {
-        model.modelName = modelName;
+    public void updateModelName(String oldName, String newName) throws NoSuchModelNameException, DuplicateModelNameException {
+       if (getModelByName(oldName) != null) {
+           if(getModelByName(newName) == null) getModelByName(oldName).modelName = newName;
+           else throw new DuplicateModelNameException(newName);
+       }
+       else {
+           throw new NoSuchModelNameException(oldName);
+       }
+
     }
 
     public String[] getAllModelNames() {
@@ -82,18 +94,30 @@ public class Motorcycle {
 
     }
 
-    public double getPriceModelByName(String modelName) {
+    public double getPriceModelByName(String modelName) throws NoSuchModelNameException {
         double founded = 0;
-        for(int i=0; i<size; i++) {
-            if(getModelByIndex(i).getModelName() == modelName) founded = getModelByIndex(i).price;
+        if (getModelByName(modelName) != null) {
+            for (int i = 0; i < size; i++) {
+                if (getModelByIndex(i).getModelName() == modelName) founded = getModelByIndex(i).price;
+            }
+            return founded;
         }
-
-        return founded;
+        else {
+            throw new NoSuchModelNameException(modelName);
+        }
 
     }
 
-    public void updatePriceModelByName(String modelName, double price) {
-
+    public void updatePriceModelByName(String modelName, double price) throws NoSuchModelNameException {
+        if (0 < price && price < Double.MAX_VALUE) {
+            if (getModelByName(modelName) != null) {
+                getModelByName(modelName).price = price;
+            } else {
+                throw new NoSuchModelNameException(modelName);
+            }
+        } else {
+            throw new ModelPriceOutOfBoundsException();
+        }
     }
 
     public double[] getAllModelPrices() {
@@ -106,32 +130,51 @@ public class Motorcycle {
 
     }
 
-    public void addModel(String modelName, double price) {
-
-        Model model = new Model(modelName,price);
-        model.next = head;
-        model.prev = head.prev;
-        model.prev.next = model;
-        model.next.prev = model;
-        size++;
+    public void addModel(String modelName, double price) throws DuplicateModelNameException {
+        if (0 < price && price < Double.MAX_VALUE) {
+            if (getModelByName(modelName) == null) {
+                Model model = new Model(modelName, price);
+                model.next = head;
+                model.prev = head.prev;
+                model.prev.next = model;
+                model.next.prev = model;
+                size++;
+            }
+            else {
+                throw new DuplicateModelNameException(modelName);
+            }
+        }
+        else {
+            throw new ModelPriceOutOfBoundsException();
+        }
 
     }
 
-    public void addByIndex(String modelName, double price, int index) {
+    public void addByIndex(String modelName, double price, int index) throws DuplicateModelNameException {
 
-        Model model = new Model(modelName,price);
+        if (getModelByName(modelName) == null) {
+            if (0 < price && price < Double.MAX_VALUE) {
+                Model model = new Model(modelName, price);
 
-        Model m = getModelByIndex(index);
+                Model m = getModelByIndex(index);
 
 
-        m.prev.next = model;
-        model.next = m;
-        model.prev = m.prev;
-        m.prev = model;
+                m.prev.next = model;
+                model.next = m;
+                model.prev = m.prev;
+                m.prev = model;
 
-        model = m;
+                model = m;
 
-        size++;
+                size++;
+            }
+            else {
+                throw new ModelPriceOutOfBoundsException();
+            }
+        }
+        else {
+            throw new DuplicateModelNameException(modelName);
+        }
 
 
     }
@@ -153,21 +196,38 @@ public class Motorcycle {
         return m;
     }
 
-    public void deleteModel(String modelName, double price) {
+    public Model getModelByName(String name) {
 
-        Model m;
-        m = head;
-        for(int i=0; i<size; i++) {
-            if(getModelByIndex(i).getModelName() == modelName && getModelByIndex(i).getPrice() == price){
-                m = getModelByIndex(i);
-                break;
+        Model model = head.next;
+        while (model != head) {
+            if (model.getModelName() == name) {
+                return model;
             }
+            model = model.next;
         }
-        m.prev.next = m.next;
-        m.next.prev = m.prev;
-        m.next = m.prev = null;
-        m = null;
-        size--;
+        return null;
+    }
+
+    public void deleteModel(String modelName, double price) throws NoSuchModelNameException {
+
+        if (getModelByName(modelName) != null) {
+            Model m;
+            m = head;
+            for (int i = 0; i < size; i++) {
+                if (getModelByIndex(i).getModelName() == modelName && getModelByIndex(i).getPrice() == price) {
+                    m = getModelByIndex(i);
+                    break;
+                }
+            }
+            m.prev.next = m.next;
+            m.next.prev = m.prev;
+            m.next = m.prev = null;
+            m = null;
+            size--;
+        }
+        else {
+            throw new NoSuchModelNameException(modelName);
+        }
 
     }
 

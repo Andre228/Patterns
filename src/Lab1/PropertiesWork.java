@@ -75,7 +75,7 @@ public class PropertiesWork {
 
         }
 
-        private void setPropertyStuff(Properties prop) {
+        private synchronized void setPropertyStuff(Properties prop) {
             propertyStuff = prop;
         }
 

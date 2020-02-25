@@ -1,5 +1,8 @@
 package Lab1;
 
+import Lab1.Exceptions.DuplicateModelNameException;
+import Lab1.Exceptions.NoSuchModelNameException;
+
 import java.io.IOException;
 
 /**
@@ -33,6 +36,13 @@ public class Main {
 //        for (String str:car1.getAllModelNames()) {
 //            System.out.println(str);
 //        }
+
+
+//        try {
+//            car1.updateModelName("X1", "X1");
+//        } catch (DuplicateModelNameException | NoSuchModelNameException e) {
+//            e.printStackTrace();
+//        }
 //
 //        car1.deleteModel("i730",7200000);
 //
@@ -49,21 +59,21 @@ public class Main {
 
 
 
-        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
-
-        motorcycle.addModel("Y500", 540000);
-        motorcycle.addModel("Y300", 340000);
-        motorcycle.addModel("B312", 270000);
-        motorcycle.addByIndex("Test", 12345, 3);
-        motorcycle.addByIndex("Test2", 77777, 4);
+//        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
+//
+//        motorcycle.addModel("Y500", 540000);
+//        motorcycle.addModel("Y300", 340000);
+//        motorcycle.addModel("B312", 270000);
+//        motorcycle.addByIndex("Test", 12345, 3);
+//        motorcycle.addByIndex("Test2", 77777, 4);
 
 
        // System.out.println(motorcycle.getModelName(motorcycle.getModelByIndex(5)));
         //motorcycle.deleteModel("Test",12345);
 
-        for (String str: motorcycle.getAllModelNames()) {
-            System.out.println(str);
-        }
+//        for (String str: motorcycle.getAllModelNames()) {
+//            System.out.println(str);
+//        }
 
 
     }
