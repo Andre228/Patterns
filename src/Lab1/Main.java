@@ -60,7 +60,7 @@ public class Main {
 
        /*---------------------------------ПУНКТ 1.3(clone tests)----------------------------------*/
 
-        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
+        Motorcycle motorcycle = new Motorcycle("Yamaha",0); //TODO: Some shit for tests
 
         motorcycle.addModel("Y500", 540000);
         motorcycle.addModel("Y300", 340000);
@@ -69,7 +69,6 @@ public class Main {
         motorcycle.addByIndex("Test2", 77777, 4);
 
         System.out.println(motorcycle); //TODO: Тест на клона
-
         System.out.println(motorcycle.printList(motorcycle));
 
 
@@ -78,20 +77,23 @@ public class Main {
        // System.out.println(motorcycle.getModelName(motorcycle.getModelByIndex(5)));
         //motorcycle.deleteModel("Test",12345);
 
-        for (String str: motorcycle.getAllModelNames()) {
-            System.out.println(str);
-        }
+//        for (String str: motorcycle.getAllModelNames()) {
+//            System.out.println(str);
+//        }
 
 
+        System.out.println();
         System.out.println("!----------------Clone------------------!");
+        System.out.println();
 
         Motorcycle motorcycleClone = motorcycle.clone();
-
         System.out.println(motorcycleClone); //TODO: Тест на клона
 
-        for (String str: motorcycleClone.getAllModelNames()) {
-            System.out.println(str);
-        }
+//        for (String str: motorcycleClone.getAllModelNames()) {
+//            System.out.println(str);
+//        }
+
+        System.out.println(motorcycleClone.printList(motorcycleClone));
 
     }
 }
