@@ -10,8 +10,9 @@ import java.io.IOException;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-/*----------------------------ПУНКТ 1.1-------------------------------*/
+    public static void main(String[] args) throws IOException, DuplicateModelNameException, CloneNotSupportedException {
+
+        /*----------------------------ПУНКТ 1.1-------------------------------*/
 //        PropertiesWork properties = PropertiesWork.getPropertiesWork();
 //        System.out.println(properties.getStringProperties(properties.getPropertyVal()));
 
@@ -57,24 +58,40 @@ public class Main {
 
 
 
+       /*---------------------------------ПУНКТ 1.3(clone tests)----------------------------------*/
+
+        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
+
+        motorcycle.addModel("Y500", 540000);
+        motorcycle.addModel("Y300", 340000);
+        motorcycle.addModel("B312", 270000);
+        motorcycle.addByIndex("Test", 12345, 3);
+        motorcycle.addByIndex("Test2", 77777, 4);
+
+        System.out.println(motorcycle); //TODO: Тест на клона
+
+        System.out.println(motorcycle.printList(motorcycle));
 
 
-//        Motorcycle motorcycle = new Motorcycle("Yamaha",0);
-//
-//        motorcycle.addModel("Y500", 540000);
-//        motorcycle.addModel("Y300", 340000);
-//        motorcycle.addModel("B312", 270000);
-//        motorcycle.addByIndex("Test", 12345, 3);
-//        motorcycle.addByIndex("Test2", 77777, 4);
 
 
        // System.out.println(motorcycle.getModelName(motorcycle.getModelByIndex(5)));
         //motorcycle.deleteModel("Test",12345);
 
-//        for (String str: motorcycle.getAllModelNames()) {
-//            System.out.println(str);
-//        }
+        for (String str: motorcycle.getAllModelNames()) {
+            System.out.println(str);
+        }
 
+
+        System.out.println("!----------------Clone------------------!");
+
+        Motorcycle motorcycleClone = motorcycle.clone();
+
+        System.out.println(motorcycleClone); //TODO: Тест на клона
+
+        for (String str: motorcycleClone.getAllModelNames()) {
+            System.out.println(str);
+        }
 
     }
 }

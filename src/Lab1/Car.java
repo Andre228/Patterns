@@ -11,7 +11,7 @@ import java.util.Arrays;
 /**
  * Created by Андрей on 19.02.2020.
  */
-public class Car implements Vehicle {
+public class Car implements Vehicle, Cloneable {
 
     private String mark;
     private Model[] arrayModel;
@@ -155,6 +155,16 @@ public class Car implements Vehicle {
       return Arrays.asList(getAllModelNames()).indexOf(modelName);
     }
 
+    @Override
+    public Car clone() throws CloneNotSupportedException {
+        Car clone = (Car) super.clone();
+        clone.arrayModel = this.arrayModel.clone();
+        for (int i = 0; i < arrayModel.length; i++) {
+            clone.arrayModel[i] = this.arrayModel[i].clone();
+        }
+        return clone;
+    }
+
 
     private class Model {
         private String modelName;
@@ -165,6 +175,12 @@ public class Car implements Vehicle {
         public Model(String modelName, double price) {
             this.modelName = modelName;
             this.price = price;
+        }
+
+
+        @Override
+        protected Model clone() throws CloneNotSupportedException {
+            return (Model) super.clone();
         }
 
 

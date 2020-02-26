@@ -10,11 +10,11 @@ import java.util.Arrays;
 /**
  * Created by Андрей on 19.02.2020.
  */
-public class Motorcycle implements Vehicle {
+public class Motorcycle implements Vehicle, Cloneable {
 
 
 
-    private class Model {
+    private class Model implements Cloneable {
         private String modelName;
         private double price;
 
@@ -34,6 +34,11 @@ public class Motorcycle implements Vehicle {
 
         public double getPrice() {
             return price;
+        }
+
+        @Override
+        public Model clone() throws CloneNotSupportedException {
+            return (Model) super.clone();
         }
 
 
@@ -231,8 +236,41 @@ public class Motorcycle implements Vehicle {
 
     }
 
+    public String printList(Motorcycle motorcycle) {
+
+        String listForPrinting = "";
+        for (int i = 0; i <= motorcycle.size; i++) {
+            listForPrinting += "| " + getModelByIndex(i).modelName  + " | " + "--> ";
+        }
+
+
+        return listForPrinting;
+    }
+
     public int getSizeModelArray() {
         return size;
+    }
+
+    @Override
+    public Motorcycle clone() throws CloneNotSupportedException {
+        Motorcycle clone = (Motorcycle) super.clone();
+
+        Model cloneModel = head.clone();
+        for (int i = 1; i < size; i++) {
+            Model _cloneTmp = getModelByIndex(i).clone();
+
+            cloneModel.next = _cloneTmp;
+            _cloneTmp.next = cloneModel.next.next;
+            _cloneTmp.prev = cloneModel;
+            cloneModel.prev = _cloneTmp;
+
+            cloneModel = _cloneTmp;
+
+        }
+
+
+        return clone;
+
     }
 
 
