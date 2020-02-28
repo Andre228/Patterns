@@ -9,7 +9,7 @@ import java.util.Properties;
  */
 public class PropertiesWork {
 
-    public Properties propertyStuff = new Properties();
+    private Properties propertyVar = new Properties();
 
     private static PropertiesWork propertiesWork;
 
@@ -20,8 +20,8 @@ public class PropertiesWork {
 
     public Properties getPropertyVal() throws IOException {
 
-        if(propertyStuff.size() != 0){
-            return propertyStuff;
+        if(propertyVar.size() != 0){
+            return propertyVar;
         }
         else {
             FileInputStream fileInputStream = new FileInputStream("config.properties");
@@ -40,20 +40,20 @@ public class PropertiesWork {
             String car2 = property.getProperty("car2");
             String car3 = property.getProperty("car3");
 
-            propertyStuff.setProperty("login", login);
-            propertyStuff.setProperty("password", password);
-            propertyStuff.setProperty("config", config);
-            propertyStuff.setProperty("car1", car1);
-            propertyStuff.setProperty("car2", car2);
-            propertyStuff.setProperty("car3", car3);
+            propertyVar.setProperty("login", login);
+            propertyVar.setProperty("password", password);
+            propertyVar.setProperty("config", config);
+            propertyVar.setProperty("car1", car1);
+            propertyVar.setProperty("car2", car2);
+            propertyVar.setProperty("car3", car3);
 
-            setPropertyStuff(propertyStuff);
+            setPropertyVar(propertyVar);
 
 
             fileInputStream.close();
 
 
-            return propertyStuff;
+            return propertyVar;
         }
     }
 
@@ -75,8 +75,8 @@ public class PropertiesWork {
 
         }
 
-        private synchronized void setPropertyStuff(Properties prop) {
-            propertyStuff = prop;
+        private synchronized void setPropertyVar(Properties prop) {
+            propertyVar = prop;
         }
 
         public static PropertiesWork getPropertiesWork() {
