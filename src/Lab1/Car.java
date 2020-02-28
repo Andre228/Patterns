@@ -152,7 +152,11 @@ public class Car implements Vehicle, Cloneable {
     }
 
     public int getIndexByName(String modelName) {
-      return Arrays.asList(getAllModelNames()).indexOf(modelName);
+        if(arrayModel[arrayModel.length - 1] != null) {
+            return Arrays.asList(getAllModelNames()).indexOf(modelName);
+        } else {
+            return -1;
+        }
     }
 
     @Override
