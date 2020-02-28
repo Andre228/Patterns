@@ -15,7 +15,7 @@ public class PropertiesWork {
 
 
 
-    public PropertiesWork() {}
+    private PropertiesWork() {}
 
 
     public Properties getPropertyVal() throws IOException {
@@ -79,7 +79,7 @@ public class PropertiesWork {
             propertyVar = prop;
         }
 
-        public static PropertiesWork getPropertiesWork() {
+        public  synchronized static PropertiesWork getPropertiesWork() {
             if(propertiesWork == null) propertiesWork = new PropertiesWork();
             return propertiesWork;
         }

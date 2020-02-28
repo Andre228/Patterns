@@ -103,7 +103,7 @@ public class Motorcycle implements Vehicle, Cloneable {
         double founded = 0;
         if (getModelByName(modelName) != null) {
             for (int i = 0; i < size; i++) {
-                if (getModelByIndex(i).getModelName() == modelName) founded = getModelByIndex(i).price;
+                if (getModelByIndex(i).getModelName().equals(modelName)) founded = getModelByIndex(i).price;
             }
             return founded;
         }
@@ -205,7 +205,7 @@ public class Motorcycle implements Vehicle, Cloneable {
 
         Model model = head.next;
         while (model != head) {
-            if (model.getModelName() == name) {
+            if (model.getModelName().equals(name)) {
                 return model;
             }
             model = model.next;
@@ -219,7 +219,7 @@ public class Motorcycle implements Vehicle, Cloneable {
             Model m;
             m = head;
             for (int i = 0; i < size; i++) {
-                if (getModelByIndex(i).getModelName() == modelName && getModelByIndex(i).getPrice() == price) {
+                if (getModelByIndex(i).getModelName().equals(modelName) && getModelByIndex(i).getPrice() == price) {
                     m = getModelByIndex(i);
                     break;
                 }
@@ -253,23 +253,26 @@ public class Motorcycle implements Vehicle, Cloneable {
 
     @Override
     public Motorcycle clone() throws CloneNotSupportedException {
-        Motorcycle clone = (Motorcycle) super.clone();
+        Motorcycle clones = (Motorcycle) super.clone();
 
-        Model cloneModel = head.clone();
-        for (int i = 1; i < size; i++) {
-            Model _cloneTmp = getModelByIndex(i).clone();
 
-            cloneModel.next = _cloneTmp;
-            _cloneTmp.next = cloneModel.next.next;
-            _cloneTmp.prev = cloneModel;
-            cloneModel.prev = _cloneTmp;
+        clones.head = new Model();
+        clones.head.prev = clones.head;
+        clones.head.next = clones.head;
+        Model last = head;
+        clones.size = 0;
+        for (int i = 1; i <= size; i++) {
+            try {
+                clones.addModel(getModelByIndex(i).modelName, getModelByIndex(i).price);
+            } catch (DuplicateModelNameException e) {
+                e.printStackTrace();
+            }
 
-            cloneModel = _cloneTmp;
 
         }
 
 
-        return clone;
+        return clones;
 
     }
 

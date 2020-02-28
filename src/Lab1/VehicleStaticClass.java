@@ -8,7 +8,7 @@ import Lab1.Interfaces.Vehicle;
  */
 public class VehicleStaticClass {
 
-    private static TransportFactory factory;
+    private static TransportFactory factory = new AutoFactory();
 
     public static double averagePrice(Vehicle vehicle) {
         double result = 0;
@@ -30,8 +30,8 @@ public class VehicleStaticClass {
         }
     }
 
-    public static void setTransportFactory(TransportFactory vehicleFactory) {
-        factory = vehicleFactory;
+    public static void setTransportFactory(TransportFactory transportFactory) {
+        factory = transportFactory;
     }
 
     public static Vehicle createInstance(String mark, int arrSize) {

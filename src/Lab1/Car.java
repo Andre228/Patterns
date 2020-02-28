@@ -64,7 +64,7 @@ public class Car implements Vehicle, Cloneable {
 
         double founded = 0;
         for(int i=0; i<arrayModel.length; i++) {
-            if(arrayModel[i].modelName == modelName) {
+            if(arrayModel[i].modelName.equals(modelName)) {
                 founded = arrayModel[i].price;
             }
             else {
@@ -80,7 +80,7 @@ public class Car implements Vehicle, Cloneable {
         int index = getIndexByName(modelName);
         if(index != -1) {
             for (int i = 0; i < arrayModel.length; i++) {
-                if (arrayModel[i].modelName == modelName)
+                if (arrayModel[i].modelName.equals(modelName))
                     if (0 < price && price < Double.MAX_VALUE) arrayModel[i].price = price;
                 else {
                     throw new ModelPriceOutOfBoundsException();
@@ -133,7 +133,7 @@ public class Car implements Vehicle, Cloneable {
         if (getIndexByName(modelName) != -1) {
             if (arrayModel.length != 0) {
                 for (int i = 0; i < arrayModel.length; i++) {
-                    if (arrayModel[i].modelName == modelName && arrayModel[i].price == price) {
+                    if (arrayModel[i].modelName.equals(modelName) && arrayModel[i].price == price) {
                         Model[] copy = new Model[arrayModel.length - 1];
                         System.arraycopy(arrayModel, 0, copy, 0, i);
                         System.arraycopy(arrayModel, i + 1, copy, i, arrayModel.length - i - 1);
