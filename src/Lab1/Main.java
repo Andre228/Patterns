@@ -1,5 +1,6 @@
 package Lab1;
 
+import Lab1.Adapter.Adapter;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.TransportFactory;
@@ -44,7 +45,7 @@ public class Main {
         TransportFactory transportFactory2 = new AutoFactory();
         VehicleStaticClass.setTransportFactory(transportFactory2);
         System.out.println(VehicleStaticClass.createInstance("gdfg", 4).getClass());
-//        Car car2 ;
+
 
 //        for (String str:car1.getAllModelNames()) {
 //            System.out.println(str);
@@ -109,6 +110,9 @@ public class Main {
 //        }
 
 
+        Adapter adapter = new Adapter();
+        adapter.writeOutputStream("Google", "USSR", "Putin");
+        adapter.readOutputStream();
 
     }
 }
