@@ -1,9 +1,11 @@
 package Lab1;
 
 import Lab1.Adapter.Adapter;
+import Lab1.Decorator.Decorator;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.TransportFactory;
+import Lab1.Interfaces.Vehicle;
 
 import java.io.IOException;
 
@@ -110,9 +112,32 @@ public class Main {
 //        }
 
 
+
+
+
+
+
+
+        //------------------------LAB 2-----------------
+/*-----------------------------------Adapter--------------------------------------*/
+
         Adapter adapter = new Adapter();
         adapter.writeOutputStream("Google", "USSR", "Putin");
         adapter.readOutputStream();
+        System.out.println();
+
+
+/*-------------------------------Decorator----------------------------------------*/
+
+        Vehicle vehicleCar = new Car("Nissan", 2);
+        vehicleCar.addModel("Almera Classic", 320000);
+        vehicleCar.addModel("X-Trail", 920000);
+        System.out.println(vehicleCar.getClass());
+
+        Decorator decorator = new Decorator(vehicleCar);
+        for (String carName:decorator.getAllModelNames()) {
+            System.out.println(carName);
+        }
 
     }
 }
