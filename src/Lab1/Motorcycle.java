@@ -218,7 +218,7 @@ public class Motorcycle implements Vehicle, Cloneable {
         if (getModelByName(modelName) != null) {
             Model m;
             m = head;
-            for (int i = 0; i < size; i++) {
+            for (int i = 1; i <= size; i++) {
                 if (getModelByIndex(i).getModelName().equals(modelName) && getModelByIndex(i).getPrice() == price) {
                     m = getModelByIndex(i);
                     break;
@@ -240,6 +240,10 @@ public class Motorcycle implements Vehicle, Cloneable {
 
         String listForPrinting = "";
         for (int i = 0; i <= motorcycle.size; i++) {
+            if ( i == 0 ) {
+                listForPrinting += "HEAD | --> ";
+                i++;
+            }
             listForPrinting += "| " + getModelByIndex(i).modelName  + " | " + "--> ";
         }
 

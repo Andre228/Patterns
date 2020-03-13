@@ -90,7 +90,7 @@ public class Main {
 
 
        // System.out.println(motorcycle.getModelName(motorcycle.getModelByIndex(5)));
-        //motorcycle.deleteModel("Test",12345);
+       motorcycle.deleteModel("Test",12345);
 
 //        for (String str: motorcycle.getAllModelNames()) {
 //            System.out.println(str);
@@ -134,7 +134,7 @@ public class Main {
         vehicleCar.addModel("X-Trail", 920000);
         System.out.println(vehicleCar.getClass());
 
-        Decorator decorator = new Decorator(vehicleCar);
+        Decorator decorator = VehicleStaticClass.getDecorator(vehicleCar);
         for (String carName:decorator.getAllModelNames()) {
             System.out.println(carName);
         }

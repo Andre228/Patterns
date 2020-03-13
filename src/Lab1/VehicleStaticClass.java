@@ -1,5 +1,6 @@
 package Lab1;
 
+import Lab1.Decorator.Decorator;
 import Lab1.Interfaces.TransportFactory;
 import Lab1.Interfaces.Vehicle;
 
@@ -36,6 +37,11 @@ public class VehicleStaticClass {
 
     public static Vehicle createInstance(String mark, int arrSize) {
         return factory.createInstance(mark, arrSize);
+    }
+
+    public synchronized static Decorator getDecorator(Vehicle vehicle) {
+
+        return new Decorator(vehicle);
     }
 
 

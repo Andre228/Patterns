@@ -9,7 +9,7 @@ public class Adapter {
 
 
     public void writeOutputStream(String ...arr) throws IOException {
-        OutputStream outputStream = new FileOutputStream("D://JavaSaves//Maga//WriteOutput.txt");
+        OutputStream outputStream = new FileOutputStream("D://Soft//Sohranenki//Maga//2sem//Patterns//Patterns//WriteOutput.txt");
 
         for (String str: arr) {
             str += " ";
@@ -20,7 +20,7 @@ public class Adapter {
 
 
     public void readOutputStream() throws IOException {
-        InputStream inputStream = new FileInputStream("D://JavaSaves//Maga//WriteOutput.txt");
+        InputStream inputStream = new FileInputStream("D://Soft//Sohranenki//Maga//2sem//Patterns//Patterns//WriteOutput.txt");
 
         int i=-1;
         while((i=inputStream.read())!=-1){
