@@ -1,10 +1,17 @@
 package Lab1;
 
+import Lab1.Command.ColumnCommandClass;
+import Lab1.Command.Command;
+import Lab1.Command.RowCommadClass;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.ModelPriceOutOfBoundsException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.Vehicle;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,6 +22,7 @@ public class Car implements Vehicle, Cloneable {
 
     private String mark;
     private Model[] arrayModel;
+    private String command;
 
 
     public Car() {}
@@ -156,6 +164,25 @@ public class Car implements Vehicle, Cloneable {
             return Arrays.asList(getAllModelNames()).indexOf(modelName);
         } else {
             return -1;
+        }
+    }
+
+    public void setPrintCommand(String command) {
+        this.command = command;
+    }
+
+    public void print(OutputStream outputStream) throws IOException {
+        if (this.command != null) {
+            if (this.command.equals("row")) {
+                Command command = new RowCommadClass();
+                command.writeToFile(this, outputStream);
+            }
+            if (this.command.equals("column")) {
+                Command command = new ColumnCommandClass();
+                command.writeToFile(this, outputStream);
+            }
+        } else {
+            System.out.println("Команда не задана");
         }
     }
 

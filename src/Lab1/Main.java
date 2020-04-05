@@ -10,7 +10,9 @@ import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.TransportFactory;
 import Lab1.Interfaces.Vehicle;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by Андрей on 19.02.2020.
@@ -146,7 +148,7 @@ public class Main {
         //-----------------------------LAB 3------------------------------
 
 
-        /*--------------------------------Chain of Responsibility-------------------------------------------*/
+        /*--------------------------------Chain of Responsibility 3.1-------------------------------------------*/
         Vehicle vehicleCar = new Car("Nissan", 3);
         vehicleCar.addModel("Almera Classic", 320000);
         vehicleCar.addModel("X-Trail", 920000);
@@ -160,6 +162,15 @@ public class Main {
         chain2.writeToFile(vehicleCar);
 
 
+
+       /*--------------------------------Command 3.2-------------------------------------------*/
+
+        OutputStream outputStream = new FileOutputStream("D://JavaSaves//Maga//WriteCommandOutput.txt");
+        Car carCommand = new Car("Toyota", 2);
+        carCommand.addModel("Chaiser", 1200000);
+        carCommand.addModel("Corolla", 1000000);
+        carCommand.setPrintCommand("column");
+        carCommand.print(outputStream);
 
     }
 }
