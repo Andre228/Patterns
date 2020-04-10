@@ -4,6 +4,8 @@ import Lab1.Adapter.Adapter;
 import Lab1.ChainOfResponsibility.Chain;
 import Lab1.ChainOfResponsibility.ColumnClass;
 import Lab1.ChainOfResponsibility.RowClass;
+import Lab1.Command.ColumnCommandClass;
+import Lab1.Command.Command;
 import Lab1.Decorator.Decorator;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
@@ -153,7 +155,7 @@ public class Main {
         vehicleCar.addModel("Almera Classic", 320000);
         vehicleCar.addModel("X-Trail", 920000);
         vehicleCar.addModel("Juke", 735000);
-      //  vehicleCar.addModel("Teana", 1550000);
+        //vehicleCar.addModel("Teana", 1550000);
 
         Chain chain1 = new RowClass();
         Chain chain2 = new ColumnClass();
@@ -165,12 +167,12 @@ public class Main {
 
        /*--------------------------------Command 3.2-------------------------------------------*/
 
-        OutputStream outputStream = new FileOutputStream("D://JavaSaves//Maga//WriteCommandOutput.txt");
-        Car carCommand = new Car("Toyota", 2);
-        carCommand.addModel("Chaiser", 1200000);
-        carCommand.addModel("Corolla", 1000000);
-        carCommand.setPrintCommand("column");
-        carCommand.print(outputStream);
+//        OutputStream outputStream = new FileOutputStream("D://JavaSaves//Maga//WriteCommandOutput.txt");
+//        Car carCommand = new Car("Toyota", 2);
+//        carCommand.addModel("Chaiser", 1200000);
+//        carCommand.addModel("Corolla", 1000000);
+//        carCommand.setPrintCommand(new ColumnCommandClass());
+//        carCommand.print(outputStream);
 
     }
 }

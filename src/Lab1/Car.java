@@ -22,7 +22,7 @@ public class Car implements Vehicle, Cloneable {
 
     private String mark;
     private Model[] arrayModel;
-    private String command;
+    private Command command = new RowCommadClass();
 
 
     public Car() {}
@@ -167,20 +167,13 @@ public class Car implements Vehicle, Cloneable {
         }
     }
 
-    public void setPrintCommand(String command) {
+    public void setPrintCommand(Command command) {
         this.command = command;
     }
 
     public void print(OutputStream outputStream) throws IOException {
         if (this.command != null) {
-            if (this.command.equals("row")) {
-                Command command = new RowCommadClass();
-                command.writeToFile(this, outputStream);
-            }
-            if (this.command.equals("column")) {
-                Command command = new ColumnCommandClass();
-                command.writeToFile(this, outputStream);
-            }
+            command.writeToFile(this, outputStream);
         } else {
             System.out.println("Команда не задана");
         }
