@@ -1,6 +1,5 @@
 package Lab1;
 
-import Lab1.Command.ColumnCommandClass;
 import Lab1.Command.Command;
 import Lab1.Command.RowCommadClass;
 import Lab1.Exceptions.DuplicateModelNameException;
@@ -8,21 +7,20 @@ import Lab1.Exceptions.ModelPriceOutOfBoundsException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.Vehicle;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
+import java.io.*;
+import java.net.ServerSocket;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 /**
  * Created by Андрей on 19.02.2020.
  */
-public class Car implements Vehicle, Cloneable {
+public class Car implements Vehicle, Cloneable, Serializable {
 
     private String mark;
     private Model[] arrayModel;
     private Command command = new RowCommadClass();
+    private AutoIterator autoIterator;
 
 
     public Car() {}
@@ -155,8 +153,19 @@ public class Car implements Vehicle, Cloneable {
         }
     }
 
+    public void deleteByIndex(int i) {
+        Model[] copy = new Model[arrayModel.length - 1];
+        System.arraycopy(arrayModel, 0, copy, 0, i);
+        System.arraycopy(arrayModel, i + 1, copy, i, arrayModel.length - i - 1);
+        arrayModel = copy;
+    }
+
     public int getSizeModelArray() {
         return arrayModel.length;
+    }
+
+    public Model getModelByIndex(int i) {
+        return arrayModel[i];
     }
 
     public int getIndexByName(String modelName) {
@@ -189,8 +198,21 @@ public class Car implements Vehicle, Cloneable {
         return clone;
     }
 
+    public AutoIterator iterator() {
+        if (this.autoIterator != null) return this.autoIterator;
+        else  return new AutoIterator();
+    }
 
-    private class Model {
+    public Memento createMemento() throws IOException, ClassNotFoundException {
+        return new Memento(this);
+    }
+
+    public void setMemento(Memento memento) throws IOException, ClassNotFoundException {
+        memento.setAuto();
+    }
+
+
+    public static class Model implements Serializable {
         private String modelName;
         private double price;
 
@@ -207,6 +229,77 @@ public class Car implements Vehicle, Cloneable {
             return (Model) super.clone();
         }
 
+        public String toString() {
+            return modelName + "  " + price;
+        }
 
+
+    }
+
+    protected class AutoIterator implements java.util.Iterator {
+
+        int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < getSizeModelArray();
+        }
+
+        @Override
+        public Model next() {
+            return arrayModel[index++];
+        }
+
+        @Override
+        public void remove() {
+            deleteByIndex(index);
+        }
+    }
+
+    public static class Memento implements Serializable {
+
+        private ByteArrayOutputStream state = new ByteArrayOutputStream(64);
+        private Car car = new Car();
+
+
+        public Memento(Car car) throws IOException, ClassNotFoundException {
+            this.car = car;
+            setAuto();
+        }
+
+        public void setAuto() throws IOException, ClassNotFoundException {
+
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(state);
+            objectOutputStream.writeObject(car);
+
+
+
+            state.close();
+            objectOutputStream.close();
+
+
+//            if (this.mark != null && this.arrayModel != null) {
+//                this.state.write((this.mark + ":\n").getBytes());
+//                for (Model model:this.arrayModel) {
+//                    String price = String.valueOf(model.price) + "\n";
+//                    this.state.write((" " + model.modelName + "  ").getBytes());
+//                    this.state.write(price.getBytes());
+//                }
+//                this.state.close();
+//            }
+        }
+
+        public ByteArrayOutputStream getAuto() {
+            return this.state;
+        }
+
+        public Car getCar() throws IOException, ClassNotFoundException {
+            byte[] buffer = state.toByteArray();
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(buffer);
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+            byteArrayInputStream.close();
+            objectInputStream.close();
+            return (Car)objectInputStream.readObject();
+        }
     }
 }

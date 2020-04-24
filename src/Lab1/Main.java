@@ -12,16 +12,18 @@ import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.TransportFactory;
 import Lab1.Interfaces.Vehicle;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Андрей on 19.02.2020.
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, DuplicateModelNameException, CloneNotSupportedException, NoSuchModelNameException {
+    public static void main(String[] args) throws IOException, DuplicateModelNameException, CloneNotSupportedException, NoSuchModelNameException, ClassNotFoundException {
 
         /*----------------------------ПУНКТ 1.1-------------------------------*/
 //        PropertiesWork properties = PropertiesWork.getPropertiesWork();
@@ -151,17 +153,18 @@ public class Main {
 
 
         /*--------------------------------Chain of Responsibility 3.1-------------------------------------------*/
-        Vehicle vehicleCar = new Car("Nissan", 3);
-        vehicleCar.addModel("Almera Classic", 320000);
-        vehicleCar.addModel("X-Trail", 920000);
-        vehicleCar.addModel("Juke", 735000);
-        //vehicleCar.addModel("Teana", 1550000);
 
-        Chain chain1 = new RowClass();
-        Chain chain2 = new ColumnClass();
-
-        chain2.setNextChain(chain1);
-        chain2.writeToFile(vehicleCar);
+//        Vehicle vehicleCar = new Car("Nissan", 3);
+//        vehicleCar.addModel("Almera Classic", 320000);
+//        vehicleCar.addModel("X-Trail", 920000);
+//        vehicleCar.addModel("Juke", 735000);
+//        //vehicleCar.addModel("Teana", 1550000);
+//
+//        Chain chain1 = new RowClass();
+//        Chain chain2 = new ColumnClass();
+//
+//        chain2.setNextChain(chain1);
+//        chain2.writeToFile(vehicleCar);
 
 
 
@@ -173,6 +176,42 @@ public class Main {
 //        carCommand.addModel("Corolla", 1000000);
 //        carCommand.setPrintCommand(new ColumnCommandClass());
 //        carCommand.print(outputStream);
+
+       /*--------------------------------Iterator 3.3-------------------------------------------*/
+
+//        Car car = new Car("Toyota", 3);
+//        Car.AutoIterator iterator = car.iterator();
+//        car.addModel("Chaiser", 1200000);
+//        car.addModel("Corolla", 1000000);
+//        car.addModel("Camry", 2500000);
+//
+//
+//        while(iterator.hasNext()) {
+//            System.out.println(iterator.next().toString());
+//        }
+
+        /*--------------------------------Memento 3.4-------------------------------------------*/
+
+
+        Car car = new Car("Toyota", 2);
+        car.addModel("Chaiser", 1200000);
+        car.addModel("Corolla", 1000000);
+
+
+        Car.Memento memento = car.createMemento();
+        car.setMemento(memento);
+
+        car.addModel("Camry", 2500000);
+        car.addModel("Land Cruiser", 5000000);
+
+        for (String modelName: car.getAllModelNames()) {
+            System.out.println(modelName);
+        }
+
+        System.out.println("------------------Memento----------------------");
+        for (int i = 0; i < memento.getCar().getSizeModelArray(); i++) {
+            System.out.println(memento.getCar().getModelByIndex(i).toString());
+        }
 
     }
 }
