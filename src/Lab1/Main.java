@@ -11,7 +11,15 @@ import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.TransportFactory;
 import Lab1.Interfaces.Vehicle;
+import Lab1.Strategy.Analyzer;
+import Lab1.Strategy.Dom;
+import Lab1.Strategy.Sax;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,7 +31,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class Main {
 
-    public static void main(String[] args) throws IOException, DuplicateModelNameException, CloneNotSupportedException, NoSuchModelNameException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, DuplicateModelNameException, CloneNotSupportedException, NoSuchModelNameException, ClassNotFoundException, ParserConfigurationException, SAXException, XMLStreamException {
 
         /*----------------------------ПУНКТ 1.1-------------------------------*/
 //        PropertiesWork properties = PropertiesWork.getPropertiesWork();
@@ -192,26 +200,39 @@ public class Main {
 
         /*--------------------------------Memento 3.4-------------------------------------------*/
 
+//
+//        Car car = new Car("Toyota", 2);
+//        car.addModel("Chaiser", 1200000);
+//        car.addModel("Corolla", 1000000);
+//
+//
+//        Car.Memento memento = car.createMemento();
+//        car.setMemento(memento);
+//
+//        car.addModel("Camry", 2500000);
+//        car.addModel("Land Cruiser", 5000000);
+//
+//        for (String modelName: car.getAllModelNames()) {
+//            System.out.println(modelName);
+//        }
+//
+//        System.out.println("------------------Memento----------------------");
+//        for (int i = 0; i < memento.getCar().getSizeModelArray(); i++) {
+//            System.out.println(memento.getCar().getModelByIndex(i).toString());
+//        }
 
-        Car car = new Car("Toyota", 2);
-        car.addModel("Chaiser", 1200000);
-        car.addModel("Corolla", 1000000);
+         /*--------------------------------Strategy 3.6-------------------------------------------*/
+
+        Analyzer analyzer = new Analyzer();
+        analyzer.setStrategy(new Sax(args[0], args[1]));
+        analyzer.documentParse();
+
+//        Analyzer analyzer = new Analyzer();
+//        analyzer.setStrategy(new Dom(args[0], args[1]));
+//        analyzer.documentParse();
 
 
-        Car.Memento memento = car.createMemento();
-        car.setMemento(memento);
 
-        car.addModel("Camry", 2500000);
-        car.addModel("Land Cruiser", 5000000);
-
-        for (String modelName: car.getAllModelNames()) {
-            System.out.println(modelName);
-        }
-
-        System.out.println("------------------Memento----------------------");
-        for (int i = 0; i < memento.getCar().getSizeModelArray(); i++) {
-            System.out.println(memento.getCar().getModelByIndex(i).toString());
-        }
 
     }
 }

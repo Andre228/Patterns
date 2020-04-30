@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE student SYSTEM "student.dtd">
+
+<student lastname="Козлодоев">
+    <subject title="БЖД" mark="4"/>
+    <subject title="МПСС" mark="3"/>
+    <subject title="ИНО" mark="2"/>
+    <subject title="Физра" mark="5"/>
+    <subject title="АСМ" mark="2"/>
+    <average>100</average>
+</student>
