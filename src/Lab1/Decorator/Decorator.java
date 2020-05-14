@@ -3,6 +3,7 @@ package Lab1.Decorator;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.Vehicle;
+import Lab1.Visitor.Visitor;
 
 /**
  * Created by Андрей on 04.03.2020.
@@ -63,5 +64,10 @@ public class Decorator implements Vehicle {
     @Override
     public synchronized int getSizeModelArray() {
         return vehicle.getSizeModelArray();
+    }
+
+    @Override
+    public void accept(Visitor visitor) throws NoSuchModelNameException {
+
     }
 }

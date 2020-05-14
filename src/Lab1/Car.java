@@ -6,6 +6,7 @@ import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.ModelPriceOutOfBoundsException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.Vehicle;
+import Lab1.Visitor.Visitor;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -164,6 +165,11 @@ public class Car implements Vehicle, Cloneable, Serializable {
         return arrayModel.length;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+
     public Model getModelByIndex(int i) {
         return arrayModel[i];
     }
@@ -223,6 +229,13 @@ public class Car implements Vehicle, Cloneable, Serializable {
             this.price = price;
         }
 
+        public double getPrice() {
+            return price;
+        }
+
+        public String getModelName() {
+            return modelName;
+        }
 
         @Override
         protected Model clone() throws CloneNotSupportedException {
@@ -268,25 +281,10 @@ public class Car implements Vehicle, Cloneable, Serializable {
         }
 
         public void setAuto() throws IOException, ClassNotFoundException {
-
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(state);
             objectOutputStream.writeObject(car);
-
-
-
             state.close();
             objectOutputStream.close();
-
-
-//            if (this.mark != null && this.arrayModel != null) {
-//                this.state.write((this.mark + ":\n").getBytes());
-//                for (Model model:this.arrayModel) {
-//                    String price = String.valueOf(model.price) + "\n";
-//                    this.state.write((" " + model.modelName + "  ").getBytes());
-//                    this.state.write(price.getBytes());
-//                }
-//                this.state.close();
-//            }
         }
 
         public ByteArrayOutputStream getAuto() {

@@ -14,6 +14,8 @@ import Lab1.Interfaces.Vehicle;
 import Lab1.Strategy.Analyzer;
 import Lab1.Strategy.Dom;
 import Lab1.Strategy.Sax;
+import Lab1.Visitor.PrintVisitor;
+import Lab1.Visitor.Visitor;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -223,13 +225,22 @@ public class Main {
 
          /*--------------------------------Strategy 3.6-------------------------------------------*/
 
-        Analyzer analyzer = new Analyzer();
-        analyzer.setStrategy(new Sax(args[0], args[1]));
-        analyzer.documentParse();
+//        Analyzer analyzer = new Analyzer();
+//        analyzer.setStrategy(new Sax(args[0], args[1]));
+//        analyzer.documentParse();
 
 //        Analyzer analyzer = new Analyzer();
 //        analyzer.setStrategy(new Dom(args[0], args[1]));
 //        analyzer.documentParse();
+
+
+        /*--------------------------------Visitor 3.8-------------------------------------------*/
+        Visitor visitor = new PrintVisitor();
+        Vehicle vehicle = new Motorcycle("Honda",3);
+        vehicle.addModel("CBR1000RR-R", 1750000);
+        vehicle.addModel("CBR1000SP1", 1742000);
+        vehicle.addModel("CBR650R", 791000);
+        vehicle.accept(visitor);
 
 
 

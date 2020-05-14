@@ -4,6 +4,7 @@ import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.ModelPriceOutOfBoundsException;
 import Lab1.Exceptions.NoSuchModelNameException;
 import Lab1.Interfaces.Vehicle;
+import Lab1.Visitor.Visitor;
 
 import java.util.Arrays;
 
@@ -102,7 +103,7 @@ public class Motorcycle implements Vehicle, Cloneable {
     public double getPriceModelByName(String modelName) throws NoSuchModelNameException {
         double founded = 0;
         if (getModelByName(modelName) != null) {
-            for (int i = 0; i < size; i++) {
+            for (int i = 1; i <= size; i++) {
                 if (getModelByIndex(i).getModelName().equals(modelName)) founded = getModelByIndex(i).price;
             }
             return founded;
@@ -127,9 +128,9 @@ public class Motorcycle implements Vehicle, Cloneable {
 
     public double[] getAllModelPrices() {
 
-        double [] modelPricesArr = new double[]{};
-        for (int i=0; i<size; i++)
-            modelPricesArr[i] = getModelByIndex(i).getPrice();
+        double [] modelPricesArr = new double[size];
+        for (int i = 1; i <= size; i++)
+            modelPricesArr[i-1] = getModelByIndex(i).getPrice();
 
         return modelPricesArr;
 
@@ -143,7 +144,7 @@ public class Motorcycle implements Vehicle, Cloneable {
                 model.prev = head.prev;
                 model.prev.next = model;
                 model.next.prev = model;
-                size++;
+               // size++;
             }
             else {
                 throw new DuplicateModelNameException(modelName);
@@ -256,6 +257,11 @@ public class Motorcycle implements Vehicle, Cloneable {
     }
 
     @Override
+    public void accept(Visitor visitor) throws NoSuchModelNameException {
+        visitor.visit(this);
+    }
+
+    @Override
     public Motorcycle clone() throws CloneNotSupportedException {
         Motorcycle clones = (Motorcycle) super.clone();
 
@@ -264,7 +270,7 @@ public class Motorcycle implements Vehicle, Cloneable {
         clones.head.prev = clones.head;
         clones.head.next = clones.head;
         Model last = head;
-        clones.size = 0;
+       // clones.size = 0;
         for (int i = 1; i <= size; i++) {
             try {
                 clones.addModel(getModelByIndex(i).modelName, getModelByIndex(i).price);

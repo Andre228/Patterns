@@ -2,6 +2,7 @@ package Lab1.Interfaces;
 
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
+import Lab1.Visitor.Visitor;
 
 /**
  * Created by Андрей on 25.02.2020.
@@ -18,5 +19,6 @@ public interface Vehicle {
     void addModel(String modelName, double price) throws DuplicateModelNameException;
     void deleteModel(String modelName, double price) throws NoSuchModelNameException;
     int getSizeModelArray();
+    void accept(Visitor visitor) throws NoSuchModelNameException;
 
 }

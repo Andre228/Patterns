@@ -1,0 +1,34 @@
+package Lab1.MVC;
+
+/**
+ * Created by Андрей on 13.05.2020.
+ */
+public class TableValue {
+    public double x;
+    public double y;
+
+    public TableValue() {
+    }
+
+    public TableValue(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+}
