@@ -6,6 +6,9 @@ import Lab1.ChainOfResponsibility.ColumnClass;
 import Lab1.ChainOfResponsibility.RowClass;
 import Lab1.Command.ColumnCommandClass;
 import Lab1.Command.Command;
+import Lab1.DAO.DataTypeGetting;
+import Lab1.DAO.Serialize;
+import Lab1.DAO.Text;
 import Lab1.Decorator.Decorator;
 import Lab1.Exceptions.DuplicateModelNameException;
 import Lab1.Exceptions.NoSuchModelNameException;
@@ -235,13 +238,24 @@ public class Main {
 
 
         /*--------------------------------Visitor 3.8-------------------------------------------*/
-        Visitor visitor = new PrintVisitor();
-        Vehicle vehicle = new Motorcycle("Honda",3);
-        vehicle.addModel("CBR1000RR-R", 1750000);
-        vehicle.addModel("CBR1000SP1", 1742000);
-        vehicle.addModel("CBR650R", 791000);
-        vehicle.accept(visitor);
+//        Visitor visitor = new PrintVisitor();
+//        Vehicle vehicle = new Motorcycle("Honda",3);
+//        vehicle.addModel("CBR1000RR-R", 1750000);
+//        vehicle.addModel("CBR1000SP1", 1742000);
+//        vehicle.addModel("CBR650R", 791000);
+//        vehicle.accept(visitor);
 
+
+
+        /*--------------------------------DAO 4.2-------------------------------------------*/
+        Car car = new Car("Hyndai",3);
+        car.defaultInit();
+
+
+        DataTypeGetting file = new Text();
+        file.set(car);
+        file.get();
+        file.print();
 
 
 

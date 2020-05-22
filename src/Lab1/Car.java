@@ -31,6 +31,12 @@ public class Car implements Vehicle, Cloneable, Serializable {
         this.arrayModel = new Model[arrSize];
     }
 
+    public void defaultInit() throws DuplicateModelNameException {
+        this.addModel("Elantra", 1500000);
+        this.addModel("Solaris", 750000);
+        this.addModel("Sonata", 400000);
+    }
+
 
     public String getMark() {
         return mark;
@@ -102,8 +108,8 @@ public class Car implements Vehicle, Cloneable, Serializable {
 
     public double[] getAllModelPrices() {
 
-        double [] modelPricesArr = new double[]{};
-        for (int i=0; i<arrayModel.length; i++)
+        double [] modelPricesArr = new double[getSizeModelArray()];
+        for (int i = 0; i < arrayModel.length; i++)
             modelPricesArr[i] = arrayModel[i].price;
 
         return modelPricesArr;
